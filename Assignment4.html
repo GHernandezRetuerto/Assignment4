@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Assignment 4</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <script>
-            d3.csv("category-brands.csv",
-            d => console.log(d)
-            )
+    <h1>Assignment 4</h1>
 
-            function colorP() {
-                alert("ok");
-                d3.selectAll("p").style("color", "red");
-            }
+    <div id="dateSelector"></div>
+
+    <table id="table1"></table>
+
+    <script>
+        url = false ? "category-brands.csv" : 'https://raw.githubusercontent.com/bernardo-dauria/2021-02-17-example/main/category-brands.csv'
+        d3.csv(url,
+        (d,i,c) => {
+            if (i>10) return d
+            d3.select('#table1')
+            .append('tr')
+            .selectAll('td')
+            .data(c).enter()
+            .append('td').text(e => d[e])
+            .attr("class", e => e)
+        }).then(tidying)
+
     </script>
 </body>
 </html>
