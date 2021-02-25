@@ -8,25 +8,14 @@
 </head>
 
 <body>
+    <script src="functions.js"></script>
+
     <h1>Assignment 4</h1>
 
     <div id="dateSelector"></div>
 
-    <table id="table1"></table>
+    <svg id="myCanvas" style="width:100%; height: 200px;"></svg>
 
-    <script>
-        url = false ? "category-brands.csv" : 'https://raw.githubusercontent.com/bernardo-dauria/2021-02-17-example/main/category-brands.csv'
-        d3.csv(url,
-        (d,i,c) => {
-            if (i>10) return d
-            d3.select('#table1')
-            .append('tr')
-            .selectAll('td')
-            .data(c).enter()
-            .append('td').text(e => d[e])
-            .attr("class", e => e)
-        }).then(tidying)
-
-    </script>
+    <table id="table"><thead></thead><tbody></tbody></table>
 </body>
 </html>

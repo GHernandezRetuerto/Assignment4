@@ -945,3 +945,7 @@ table, th, td {
   width: 100%;
 
 }
+
+#myCanvas {
+    background-color: yellow;
+}
