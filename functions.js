@@ -10,12 +10,13 @@ csv_url = false ? "category-brands.csv" : "https://raw.githubusercontent.com/ber
             .selectAll("td")
             .data(e => columns.map(x => e[x]))
             .join("td")
-                .text(x => x);
+            .text(x => x);
     }
 
     function makeHeader(d) {
+        // remove current table
         d3.select("table thead").selectAll("tr").remove()
-
+        // new table
         d3.select("table thead")
             .append("tr")
             .selectAll("th")
@@ -23,14 +24,13 @@ csv_url = false ? "category-brands.csv" : "https://raw.githubusercontent.com/ber
             .join("th").text(e => e)
     }
 
-    var data, columns;
+    var data, columns, maxValue;
     function tidying(d) {
         data = d;
         columns = d.columns;
-
+        maxValue = d3.reduce(d, (p, v) => Math.max(p,v.value) , 0)
         dates = Array.from(new Set(d.map(e => e.date)));
         dateSelector(dates);
-
         updateSelect()
     }
 
@@ -55,4 +55,37 @@ csv_url = false ? "category-brands.csv" : "https://raw.githubusercontent.com/ber
         fdata = d3.filter(data, d => d.date == val)
         updateTable(fdata)
         updateChart(fdata)
+        updateChart(fdata)
+    }
+
+    function updateChart(data) {
+        svg =  d3.select("#Canvas");
+        w = svg.node().width.baseVal.value;
+        h = svg.node().height.baseVal.value;
+        x = d3.scaleLinear([0, data.length], [0, w])
+        y = d3.scaleLinear([0, maxValue], [0,h])
+        cat = new Set(d3.map(data, d => d.category))
+        color = d3.scaleOrdinal(cat, d3.schemeTableau10)
+
+        svgBind = svg.text("")
+            .selectAll("rect")
+            .data(data)
+
+        svgBind.enter()
+            .append('rect')
+            .attr('x', (d , i) => x(i))
+            .attr('y', d => y(maxValue - d.value))
+            .attr('height', d => y(d.value))
+            .attr('width', x(1)*0.95)
+            .attr('fill', d => color(d.category))
+
+        svgBind.enter()
+            .append("text")
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('transform',
+                  (d , i) => 'translate(' + x(i+0.5) +
+                    ',' + y(maxValue - d.value - 5000)+'),'
+                    + 'rotate(-90)')
+            .text(d => d.name);
     }
