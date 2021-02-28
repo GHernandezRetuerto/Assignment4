@@ -59,7 +59,7 @@ csv_url = false ? "category-brands.csv" : "https://raw.githubusercontent.com/ber
     }
 
     function updateChart(data) {
-        svg =  d3.select("#Canvas");
+        svg = d3.select("#Canvas");
         w = svg.node().width.baseVal.value;
         h = svg.node().height.baseVal.value;
         x = d3.scaleLinear([0, data.length], [0, w])
