@@ -90,7 +90,7 @@ csv_url = false ? "category-brands.csv" : "https://raw.githubusercontent.com/ber
             .text(d => d.name);
     }
 
-    function rowOnClick() {
+    /*function rowOnClick() {
       var table = document.getElementById("table");
       var rows = table.getElementsByTagName("tr");
       for (i = 0; i < rows.length; i++) {
@@ -98,10 +98,11 @@ csv_url = false ? "category-brands.csv" : "https://raw.githubusercontent.com/ber
         var hlColumn = function(row) {
           // aquí creamos la función que remarque la columna deseada
           // cómo generamos la conexión entre fila y su barra correspondiente? id, índice,..?
+          console.log()
           };
         };
         currentRow.onclick = hlColumn(currentRow);
       }
-    }
+    }*/
 
     //Objetivo, crear una funcion onclick a 'tr' (filas)
